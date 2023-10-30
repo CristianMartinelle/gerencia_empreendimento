@@ -1,7 +1,7 @@
 import psycopg
 import cliente
-    
-
+import produto
+import os    
 
 def menu():
     print("|---------------------------|")
@@ -11,10 +11,9 @@ def menu():
     print("| abaixo para gerenciamento |")
     print("|---------------------------|")
     print("1- Cliente")
-    print("2- Venda")
-    print("3- Produto")
+    print("2- Produto")
+    print("3- Venda")
     print("4- Sair")
-
 
 # Conectar ao seu banco de dados PostgreSQL
 conn_string = "dbname=gerencia_empreendimento user=postgres password=postgres"
@@ -24,10 +23,12 @@ conn = psycopg.connect(conn_string)
 cur = conn.cursor()
 
 while True:
+    
     menu()
     opcao = input("Escolha uma opção: ")
 
     if opcao == "1":
+        os.system('cls')
         print("Opção selecionada: Cliente\n")
         cliente_instanciado = cliente.Cliente(conn)
         print("1-listar clientes")
@@ -48,14 +49,33 @@ while True:
             print("Comando inválido, voltando para tela inicial!!")
 
     elif opcao == "2":
-        print("Opção selecionada: Venda")
-        # Aqui você pode adicionar a lógica para lidar com as operações de vendas
+        os.system('cls')
+        print("Opção selecionada: Produto\n")
+        produto_instanciado = produto.Produto(conn)
+        print("1-listar produtos")
+        print("2-Adicionar produtos")
+        print("3-Editar produtos")
+        print("4-Remover produtos")
+
+        escolha = input("Escolha uma opção: ")
+        if escolha == "1":
+            produto_instanciado.lista_produtos()
+        elif escolha == "2":
+            produto_instanciado.adiciona_produto()
+        elif escolha == "3":
+            produto_instanciado.edita_produto()
+        elif escolha == "4":
+            produto_instanciado.remove_produto()
+        else:
+            print("Comando inválido, voltando para tela inicial!!")
 
     elif opcao == "3":
-        print("Opção selecionada: Produto")
+        os.system('cls')
+        print("Opção selecionada: Vendas")
         # Aqui você pode adicionar a lógica para lidar com as operações de produtos
 
     elif opcao == "4":
+        os.system('cls')
         print("Saindo do sistema. Obrigado!")
         break
 
