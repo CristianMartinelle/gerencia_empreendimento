@@ -4,15 +4,20 @@ import cliente
 
 
 def menu():
-    print("Olá, bem-vindo ao sistema\n")
+    print("|---------------------------|")
+    print("| Olá, bem-vindo ao sistema |")
+    print("|---------------------------|")
+    print("| Escolha uma das opções    |")
+    print("| abaixo para gerenciamento |")
+    print("|---------------------------|")
     print("1- Cliente")
     print("2- Venda")
     print("3- Produto")
-    print("4- Sair")
+    print("4- Sair")
 
 
 # Conectar ao seu banco de dados PostgreSQL
-conn_string = "dbname=gerencia_empreendimento user=postgres password=a4084b10"
+conn_string = "dbname=gerencia_empreendimento user=postgres password=postgres"
 conn = psycopg.connect(conn_string)
 
 # Abrir um cursor para realizar operações no banco de dados
