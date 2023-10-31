@@ -59,7 +59,7 @@ class Produto:
         cur = self.conn.cursor()
         ID = input("Informe o ID do produto que deseja buscar (deixe em branco caso não queira): ")
         nome = input("Informe o nome (deixe em branco caso não queira): ")
-        cod = input("Informe o código (deixe em branco caso não queira): ")
+        cod = input("Informe o código (deixe em branco caso não queira): \n")
         
         sql = "SELECT * FROM produtos WHERE "
         params = []
@@ -80,8 +80,9 @@ class Produto:
         sql = sql.rstrip("AND ")
         if C == 0:
             sql = "select * from produtos"
-        cur.execute(sql,params)
+        cur.execute(sql,"params")
         # Recuperar os resultados da consulta
         recset = cur.fetchall()
         for rec in recset:
             print(rec)
+        print("\n")

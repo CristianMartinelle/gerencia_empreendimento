@@ -1,7 +1,8 @@
 import psycopg
 import cliente
 import produto
-import os    
+import os
+import venda    
 
 def menu():
     print("|---------------------------|")
@@ -16,7 +17,7 @@ def menu():
     print("4- Sair")
 
 # Conectar ao seu banco de dados PostgreSQL
-conn_string = "dbname=gerencia_empreendimento user=postgres password=postgres"
+conn_string = "dbname=gerencia_empreendimento user=postgres password=a4084b10"
 conn = psycopg.connect(conn_string)
 
 # Abrir um cursor para realizar operações no banco de dados
@@ -71,8 +72,9 @@ while True:
 
     elif opcao == "3":
         os.system('cls')
-        print("Opção selecionada: Vendas")
-        # Aqui você pode adicionar a lógica para lidar com as operações de produtos
+        print("Opção selecionada: Vendas\n")
+        venda_instanciada = venda.Venda(conn)
+        venda_instanciada.compra_produto()
 
     elif opcao == "4":
         os.system('cls')
