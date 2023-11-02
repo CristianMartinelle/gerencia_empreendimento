@@ -74,7 +74,20 @@ while True:
         os.system('cls')
         print("Opção selecionada: Vendas\n")
         venda_instanciada = venda.Venda(conn)
-        venda_instanciada.compra_produto()
+        
+        print("1-Vender")
+        print("2-relatório cliente")
+        print("3-relatório empreendimento")
+
+        escolha = input("Escolha uma opção: ")
+        if escolha == "1":
+            venda_instanciada.compra_produto()
+
+        elif escolha == "2":
+            venda_instanciada.relatorio_cliente()
+
+        elif escolha == "3":
+            venda_instanciada.relatorio_empreendimento()
 
     elif opcao == "4":
         os.system('cls')

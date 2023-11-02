@@ -93,11 +93,27 @@ class Venda:
 
         cur.close()
 
-    def pagamento_a_vista(self):
-        B = True
-        while B:
-            escolha = input("Seu pagamento é a vista? (s/n): ")
-            if escolha.lower() == 's' or escolha.lower() == 'n':
-                B = False
-            else:
-                print("Entrada inválida. Digite 's' para sim ou 'n' para não.")
+    def relatorio_cliente(self):
+        ID = int(input("Informe o ID do cliente: "))
+        cur = self.conn.cursor()
+        sql = "SELECT COUNT(*) AS total_compras FROM Vendas WHERE cliente_id = %s"
+
+        cur.execute(sql, (ID,))
+        # Recuperar os resultados da consulta
+        recset = cur.fetchall()
+        for rec in recset:
+            print(f"\nO cliente com o ID {ID} fez um total de {rec[0]} compras.\n")
+        cur.close()
+    def relatorio_empreendimento(self):
+        cur = self.conn.cursor()
+        sql = "SELECT COUNT(*) AS total_compras FROM Vendas"
+
+        cur.execute(sql)
+        # Recuperar os resultados da consulta
+        recset = cur.fetchall()
+        for rec in recset:
+            print(f"\nO total de vendas do estabelecimento é {rec[0]}.\n")
+        cur.close()
+
+
+
