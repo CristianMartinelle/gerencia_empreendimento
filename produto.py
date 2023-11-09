@@ -61,7 +61,7 @@ class Produto:
         nome = input("Informe o nome (deixe em branco caso não queira): ")
         cod = input("Informe o código (deixe em branco caso não queira): \n")
         
-        sql = "SELECT * FROM produtos WHERE "
+        sql = "SELECT * FROM produtos WHERE ;"
         params = []
         C = 0
         if ID:
@@ -79,8 +79,8 @@ class Produto:
             
         sql = sql.rstrip("AND ")
         if C == 0:
-            sql = "select * from produtos"
-        cur.execute(sql,"params")
+            sql = "select * from produtos ;"
+        cur.execute(sql, params)
         # Recuperar os resultados da consulta
         recset = cur.fetchall()
         for rec in recset:

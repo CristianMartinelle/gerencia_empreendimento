@@ -17,7 +17,7 @@ def menu():
     print("4- Sair")
 
 # Conectar ao seu banco de dados PostgreSQL
-conn_string = "dbname=gerencia_empreendimento user=postgres password=a4084b10"
+conn_string = "dbname=gerencia_empreendimento user=postgres password=postgres"
 conn = psycopg.connect(conn_string)
 
 # Abrir um cursor para realizar operações no banco de dados

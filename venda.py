@@ -80,7 +80,7 @@ class Venda:
                             if quantidade_compra > quantidade_produto:
                                 print(f"Essa quantidade não existe, temos apenas {quantidade_produto} unidades desse item!!")
                             else:
-                                quantidade_produto -= 1
+                                quantidade_produto -= quantidade_compra
                                 total += preco_produto * quantidade_compra
                                 itens.append({'nome': nome_produto, 'quantidade': quantidade_compra, 'id_produto': id_produto, 'valor_unitario': preco_produto, 'quantidade_total_item': quantidade_produto})
 
