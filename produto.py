@@ -6,11 +6,10 @@ class Produto:
     def adiciona_produto(self):
         cur = self.conn.cursor()
         nome = input("Informe o nome: ")
-        cod = int(input("Informe o código: "))
         valor = input("Informe o valor: ")
         qntd_estoque= int(input("Infore a quatidade em estoque: "))
-        sql = "INSERT INTO produtos (nome, codigo, valor, quantidade_estoque) VALUES (%s, %s, %s, %s)"
-        cur.execute(sql, (nome, cod, valor, qntd_estoque))
+        sql = "INSERT INTO produtos (nome, valor, quantidade_estoque) VALUES (%s, %s, %s)"
+        cur.execute(sql, (nome, valor, qntd_estoque))
         self.conn.commit()
         cur.close()
 
@@ -27,7 +26,6 @@ class Produto:
         cur = self.conn.cursor()
         ID = input("Informe o ID do produto que deseja editar: ")
         novo_nome = input("Informe o novo nome (deixe em branco para manter o atual): ")
-        novo_cod = input("Informe o novo código (deixe em branco para manter o atual): ")
         novo_valor = input("Informe o novo valor (deixe em branco para manter o atual): ")
         nova_qntd_estoque = input("Informe a nova quantidade em estoque (deixe em branco para manter o atual): ")
 
@@ -37,9 +35,6 @@ class Produto:
         if novo_nome:
             sql += " nome = %s,"
             params.append(novo_nome)
-        if novo_cod:
-            sql += " codigo = %s,"
-            params.append(novo_cod)
         if novo_valor:
             sql += " valor = %s,"
             params.append(novo_valor)
@@ -59,7 +54,6 @@ class Produto:
         cur = self.conn.cursor()
         ID = input("Informe o ID do produto que deseja buscar (deixe em branco caso não queira): ")
         nome = input("Informe o nome (deixe em branco caso não queira): ")
-        cod = input("Informe o código (deixe em branco caso não queira): \n")
         
         sql = "SELECT * FROM produtos WHERE ;"
         params = []
@@ -71,10 +65,6 @@ class Produto:
         if nome:
             sql += "nome = %s AND "
             params.append(nome)
-            C += 1
-        if cod:
-            sql += "codigo = %s AND "
-            params.append(cod)
             C += 1
             
         sql = sql.rstrip("AND ")
