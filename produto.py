@@ -1,5 +1,4 @@
 class Produto:
-    
     def __init__(self, conn):
         self.conn = conn
 
@@ -7,7 +6,7 @@ class Produto:
         cur = self.conn.cursor()
         nome = input("Informe o nome: ")
         valor = input("Informe o valor: ")
-        qntd_estoque= int(input("Infore a quatidade em estoque: "))
+        qntd_estoque = int(input("Informe a quantidade em estoque: "))
         sql = "INSERT INTO produtos (nome, valor, quantidade_estoque) VALUES (%s, %s, %s)"
         cur.execute(sql, (nome, valor, qntd_estoque))
         self.conn.commit()
@@ -17,10 +16,9 @@ class Produto:
         cur = self.conn.cursor()
         ID = input("Informe o ID: ")
         sql = "DELETE FROM produtos WHERE id = %s;"
-        cur.execute(sql, (ID))
+        cur.execute(sql, (ID,))
         self.conn.commit()
         cur.close()
-
 
     def edita_produto(self):
         cur = self.conn.cursor()
@@ -55,7 +53,7 @@ class Produto:
         ID = input("Informe o ID do produto que deseja buscar (deixe em branco caso não queira): ")
         nome = input("Informe o nome (deixe em branco caso não queira): ")
         
-        sql = "SELECT * FROM produtos WHERE ;"
+        sql = "SELECT * FROM produtos WHERE "
         params = []
         C = 0
         if ID:
@@ -69,7 +67,7 @@ class Produto:
             
         sql = sql.rstrip("AND ")
         if C == 0:
-            sql = "select * from produtos ;"
+            sql = "SELECT * FROM produtos"
         cur.execute(sql, params)
         # Recuperar os resultados da consulta
         recset = cur.fetchall()

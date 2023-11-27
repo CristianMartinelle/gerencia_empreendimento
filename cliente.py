@@ -6,9 +6,10 @@ class Cliente:
         cur = self.conn.cursor()
         nome = input("Informe o nome: ")
         telefone = input("Informe o telefone: ")
-        cod = input("Informe o código: ")
-        sql = "INSERT INTO clientes (nome, telefone, codigo) VALUES (%s, %s, %s)"
-        cur.execute(sql, (nome, telefone, cod))
+        
+        
+        sql = "INSERT INTO clientes (nome, telefone) VALUES (%s, %s)"
+        cur.execute(sql, (nome, telefone))
         self.conn.commit()
         cur.close()
 
@@ -25,8 +26,8 @@ class Cliente:
         ID = input("Informe o ID do cliente que deseja editar: ")
         novo_nome = input("Informe o novo nome (deixe em branco para manter o atual): ")
         novo_telefone = input("Informe o novo telefone (deixe em branco para manter o atual): ")
-        novo_cod = input("Informe o novo código (deixe em branco para manter o atual): ")
-
+        
+        
         sql = "UPDATE clientes SET"
         params = []
 
@@ -36,9 +37,6 @@ class Cliente:
         if novo_telefone:
             sql += " telefone = %s,"
             params.append(novo_telefone)
-        if novo_cod:
-            sql += " codigo = %s,"
-            params.append(novo_cod)
 
         # Remover a última vírgula da consulta SQL e adicionar a condição WHERE
         sql = sql.rstrip(",") + " WHERE id = %s"
@@ -53,7 +51,7 @@ class Cliente:
         ID = input("Informe o ID do cliente que deseja buscar (deixe em branco caso não queira): ")
         nome = input("Informe o nome (deixe em branco caso não queira): ")
         telefone = input("Informe o telefone (deixe em branco caso não queira): ")
-        cod = input("Informe o código (deixe em branco caso não queira): ")
+        
         
         sql = "select * from clientes where "
         C = 0
@@ -69,10 +67,6 @@ class Cliente:
         if telefone:
             sql += "telefone = %s AND "
             params.append(telefone)
-            C += 1
-        if cod:
-            sql += "codigo = %s AND "
-            params.append(cod)
             C += 1
             
         sql = sql.rstrip("AND ")

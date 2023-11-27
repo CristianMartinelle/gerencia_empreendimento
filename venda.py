@@ -3,33 +3,32 @@ class Venda:
         self.conn = conn
 
     def valida_item(self, id, lista):
-            cur = self.conn.cursor()
-            sql = "SELECT * FROM Vendas WHERE cliente_id = %s ORDER BY id DESC LIMIT 1;"
+        cur = self.conn.cursor()
+        sql = "SELECT * FROM Vendas WHERE cliente_id = %s ORDER BY id DESC LIMIT 1;"
 
-            cur.execute(sql, (id,))
-            # Recuperar os resultados da consulta
-            results = cur.fetchall()
-            for row in results:
-                id_venda = row[0]
+        cur.execute(sql, (id,))
+        results = cur.fetchall()
+        for row in results:
+            id_venda = row[0]
 
-            for dicionario in lista:
-                nome = dicionario['nome']
-                quantidade = dicionario['quantidade']
-                id_produto = dicionario['id_produto']
-                valor = dicionario['valor_unitario']
-                quantidade_total_item = dicionario['quantidade_total_item']
+        for dicionario in lista:
+            nome = dicionario['nome']
+            quantidade = dicionario['quantidade']
+            id_produto = dicionario['id_produto']
+            valor = dicionario['valor_unitario']
+            quantidade_total_item = dicionario['quantidade_total_item']
 
-                print(f'nome: {nome}, Quantidade: {quantidade}, id {id_produto}, valor unitario, {valor}')
-                sql2 = "INSERT INTO ItensVenda (venda_id, produto_id, quantidade, valor_unitario) VALUES (%s, %s, %s, %s)"
-                cur.execute(sql2, (id_venda, id_produto, quantidade, valor))
-                self.conn.commit()
+            print(f'nome: {nome}, Quantidade: {quantidade}, id {id_produto}, valor unitario, {valor}')
+            sql2 = "INSERT INTO ItensVenda (venda_id, produto_id, quantidade, valor_unitario) VALUES (%s, %s, %s, %s)"
+            cur.execute(sql2, (id_venda, id_produto, quantidade, valor))
+            self.conn.commit()
 
-                quantidadeAtual = quantidade_total_item - quantidade
+            quantidadeAtual = quantidade_total_item - quantidade
 
-                sql3 = "UPDATE Produtos SET quantidade_estoque = %s WHERE id = %s"
-                cur.execute(sql3, (quantidadeAtual, id_produto))  # Corrigido o parâmetro da consulta SQL
-                self.conn.commit()
-            cur.close()
+            sql3 = "UPDATE Produtos SET quantidade_estoque = %s WHERE id = %s"
+            cur.execute(sql3, (quantidadeAtual, id_produto))
+            self.conn.commit()
+        cur.close()
 
     def efetua_compra(self, total, cliente, id, itens):
         print(f"A compra deu um total de {total} reais!\n")
@@ -62,17 +61,16 @@ class Venda:
             item_id = input("Informe o ID do item desejado (ou pressione Enter para sair): ")
             if item_id:
                 try:
-                    item_id = int(item_id)  # Certifique-se de que o ID do item é um número inteiro
+                    item_id = int(item_id)
                     sql = "SELECT * FROM produtos WHERE id = %s"
                     cur.execute(sql, (item_id,))
-                    # Recuperar os resultados da consulta
                     results = cur.fetchall()
 
                     for row in results:
                         id_produto = row[0]
                         nome_produto = row[1]
-                        preco_produto = row[3]
-                        quantidade_produto = row[4]
+                        preco_produto = row[2]  # Ajuste aqui para o índice correto da coluna do preço
+                        quantidade_produto = row[3]  # Ajuste aqui para o índice correto da coluna da quantidade
                         if quantidade_produto == 0:
                             print("Produto com falta em estoque :(")
                         else:
@@ -99,21 +97,17 @@ class Venda:
         sql = "SELECT COUNT(*) AS total_compras FROM Vendas WHERE cliente_id = %s"
 
         cur.execute(sql, (ID,))
-        # Recuperar os resultados da consulta
         recset = cur.fetchall()
         for rec in recset:
             print(f"\nO cliente com o ID {ID} fez um total de {rec[0]} compras.\n")
         cur.close()
+
     def relatorio_empreendimento(self):
         cur = self.conn.cursor()
         sql = "SELECT COUNT(*) AS total_compras FROM Vendas"
 
         cur.execute(sql)
-        # Recuperar os resultados da consulta
         recset = cur.fetchall()
         for rec in recset:
             print(f"\nO total de vendas do estabelecimento é {rec[0]}.\n")
         cur.close()
-
-
-
