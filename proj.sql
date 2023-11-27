@@ -35,3 +35,9 @@ CREATE TABLE ItensVenda (
     FOREIGN KEY (venda_id) REFERENCES Vendas(id),
     FOREIGN KEY (produto_id) REFERENCES Produtos(id)
 );
+
+-- Alteração na tabela de clientes para remover o campo codigo
+ALTER TABLE Clientes DROP COLUMN codigo;
+
+-- Alteração na tabela de produtos para remover o campo codigo
+ALTER TABLE Produtos DROP COLUMN codigo;
